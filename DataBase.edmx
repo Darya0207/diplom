@@ -1,0 +1,742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище DataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cars">
+          <Key>
+            <PropertyRef Name="carId" />
+          </Key>
+          <Property Name="carId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mark" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cartSerivce">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="int" Nullable="false" />
+          <Property Name="serviceId" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="clientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="18" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="markId" />
+          </Key>
+          <Property Name="markId" Type="int" Nullable="false" />
+          <Property Name="markName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="serviceRequests">
+          <Key>
+            <PropertyRef Name="serviceRequestId" />
+          </Key>
+          <Property Name="serviceRequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serviceId" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+          <Property Name="workerId" Type="int" Nullable="false" />
+          <Property Name="carId" Type="int" Nullable="false" />
+          <Property Name="statusId" Type="int" Nullable="false" />
+          <Property Name="dateStart" Type="date" Nullable="false" />
+          <Property Name="dateEnd" Type="date" />
+          <Property Name="notes" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="servicesList">
+          <Key>
+            <PropertyRef Name="serviceId" />
+          </Key>
+          <Property Name="serviceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serviceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="cost" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statusList">
+          <Key>
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="statusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="workerId" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="workers">
+          <Key>
+            <PropertyRef Name="workerId" />
+          </Key>
+          <Property Name="workerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="jobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sallary" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_cars_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="cars" Type="Self.cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="cars">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cartSerivce_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="cartSerivce" Type="Self.cartSerivce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="cartSerivce">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cartSerivce_servicesList">
+          <End Role="servicesList" Type="Self.servicesList" Multiplicity="1" />
+          <End Role="cartSerivce" Type="Self.cartSerivce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicesList">
+              <PropertyRef Name="serviceId" />
+            </Principal>
+            <Dependent Role="cartSerivce">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_cars">
+          <End Role="cars" Type="Self.cars" Multiplicity="1" />
+          <End Role="serviceRequests" Type="Self.serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cars">
+              <PropertyRef Name="carId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="carId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="serviceRequests" Type="Self.serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_servicesList">
+          <End Role="servicesList" Type="Self.servicesList" Multiplicity="1" />
+          <End Role="serviceRequests" Type="Self.serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicesList">
+              <PropertyRef Name="serviceId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_statusList">
+          <End Role="statusList" Type="Self.statusList" Multiplicity="1" />
+          <End Role="serviceRequests" Type="Self.serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusList">
+              <PropertyRef Name="statusId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="statusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_workers">
+          <End Role="workers" Type="Self.workers" Multiplicity="1" />
+          <End Role="serviceRequests" Type="Self.serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="workers">
+              <PropertyRef Name="workerId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="workerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_workers">
+          <End Role="workers" Type="Self.workers" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="workers">
+              <PropertyRef Name="workerId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="workerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DataBaseModelContainer">
+          <EntitySet Name="cars" EntityType="Self.cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cartSerivce" EntityType="Self.cartSerivce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="serviceRequests" EntityType="Self.serviceRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servicesList" EntityType="Self.servicesList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusList" EntityType="Self.statusList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workers" EntityType="Self.workers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cars_clients" Association="Self.FK_cars_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="cars" EntitySet="cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cartSerivce_clients" Association="Self.FK_cartSerivce_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="cartSerivce" EntitySet="cartSerivce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cartSerivce_servicesList" Association="Self.FK_cartSerivce_servicesList">
+            <End Role="servicesList" EntitySet="servicesList" />
+            <End Role="cartSerivce" EntitySet="cartSerivce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_cars" Association="Self.FK_serviceRequests_cars">
+            <End Role="cars" EntitySet="cars" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_clients" Association="Self.FK_serviceRequests_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_servicesList" Association="Self.FK_serviceRequests_servicesList">
+            <End Role="servicesList" EntitySet="servicesList" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_statusList" Association="Self.FK_serviceRequests_statusList">
+            <End Role="statusList" EntitySet="statusList" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_workers" Association="Self.FK_serviceRequests_workers">
+            <End Role="workers" EntitySet="workers" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="Self.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_workers" Association="Self.FK_users_workers">
+            <End Role="workers" EntitySet="workers" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cars" EntityType="DataBaseModel.cars" />
+          <EntitySet Name="cartSerivce" EntityType="DataBaseModel.cartSerivce" />
+          <EntitySet Name="clients" EntityType="DataBaseModel.clients" />
+          <EntitySet Name="Marks" EntityType="DataBaseModel.Marks" />
+          <EntitySet Name="roles" EntityType="DataBaseModel.roles" />
+          <EntitySet Name="serviceRequests" EntityType="DataBaseModel.serviceRequests" />
+          <EntitySet Name="servicesList" EntityType="DataBaseModel.servicesList" />
+          <EntitySet Name="statusList" EntityType="DataBaseModel.statusList" />
+          <EntitySet Name="sysdiagrams" EntityType="DataBaseModel.sysdiagrams" />
+          <EntitySet Name="users" EntityType="DataBaseModel.users" />
+          <EntitySet Name="workers" EntityType="DataBaseModel.workers" />
+          <AssociationSet Name="FK_cars_clients" Association="DataBaseModel.FK_cars_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="cars" EntitySet="cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_cars" Association="DataBaseModel.FK_serviceRequests_cars">
+            <End Role="cars" EntitySet="cars" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cartSerivce_clients" Association="DataBaseModel.FK_cartSerivce_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="cartSerivce" EntitySet="cartSerivce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cartSerivce_servicesList" Association="DataBaseModel.FK_cartSerivce_servicesList">
+            <End Role="servicesList" EntitySet="servicesList" />
+            <End Role="cartSerivce" EntitySet="cartSerivce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_clients" Association="DataBaseModel.FK_serviceRequests_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="DataBaseModel.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_servicesList" Association="DataBaseModel.FK_serviceRequests_servicesList">
+            <End Role="servicesList" EntitySet="servicesList" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_statusList" Association="DataBaseModel.FK_serviceRequests_statusList">
+            <End Role="statusList" EntitySet="statusList" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviceRequests_workers" Association="DataBaseModel.FK_serviceRequests_workers">
+            <End Role="workers" EntitySet="workers" />
+            <End Role="serviceRequests" EntitySet="serviceRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_workers" Association="DataBaseModel.FK_users_workers">
+            <End Role="workers" EntitySet="workers" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cars">
+          <Key>
+            <PropertyRef Name="carId" />
+          </Key>
+          <Property Name="carId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mark" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="DataBaseModel.FK_cars_clients" FromRole="cars" ToRole="clients" />
+          <NavigationProperty Name="serviceRequests" Relationship="DataBaseModel.FK_serviceRequests_cars" FromRole="cars" ToRole="serviceRequests" />
+        </EntityType>
+        <EntityType Name="cartSerivce">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="Int32" Nullable="false" />
+          <Property Name="serviceId" Type="Int32" Nullable="false" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="clients" Relationship="DataBaseModel.FK_cartSerivce_clients" FromRole="cartSerivce" ToRole="clients" />
+          <NavigationProperty Name="servicesList" Relationship="DataBaseModel.FK_cartSerivce_servicesList" FromRole="cartSerivce" ToRole="servicesList" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="clientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cars" Relationship="DataBaseModel.FK_cars_clients" FromRole="clients" ToRole="cars" />
+          <NavigationProperty Name="cartSerivce" Relationship="DataBaseModel.FK_cartSerivce_clients" FromRole="clients" ToRole="cartSerivce" />
+          <NavigationProperty Name="serviceRequests" Relationship="DataBaseModel.FK_serviceRequests_clients" FromRole="clients" ToRole="serviceRequests" />
+        </EntityType>
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="markId" />
+          </Key>
+          <Property Name="markId" Type="Int32" Nullable="false" />
+          <Property Name="markName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="DataBaseModel.FK_users_roles" FromRole="roles" ToRole="users" />
+        </EntityType>
+        <EntityType Name="serviceRequests">
+          <Key>
+            <PropertyRef Name="serviceRequestId" />
+          </Key>
+          <Property Name="serviceRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serviceId" Type="Int32" Nullable="false" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <Property Name="workerId" Type="Int32" Nullable="false" />
+          <Property Name="carId" Type="Int32" Nullable="false" />
+          <Property Name="statusId" Type="Int32" Nullable="false" />
+          <Property Name="dateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateEnd" Type="DateTime" Precision="0" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cars" Relationship="DataBaseModel.FK_serviceRequests_cars" FromRole="serviceRequests" ToRole="cars" />
+          <NavigationProperty Name="clients" Relationship="DataBaseModel.FK_serviceRequests_clients" FromRole="serviceRequests" ToRole="clients" />
+          <NavigationProperty Name="servicesList" Relationship="DataBaseModel.FK_serviceRequests_servicesList" FromRole="serviceRequests" ToRole="servicesList" />
+          <NavigationProperty Name="statusList" Relationship="DataBaseModel.FK_serviceRequests_statusList" FromRole="serviceRequests" ToRole="statusList" />
+          <NavigationProperty Name="workers" Relationship="DataBaseModel.FK_serviceRequests_workers" FromRole="serviceRequests" ToRole="workers" />
+        </EntityType>
+        <EntityType Name="servicesList">
+          <Key>
+            <PropertyRef Name="serviceId" />
+          </Key>
+          <Property Name="serviceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serviceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="cartSerivce" Relationship="DataBaseModel.FK_cartSerivce_servicesList" FromRole="servicesList" ToRole="cartSerivce" />
+          <NavigationProperty Name="serviceRequests" Relationship="DataBaseModel.FK_serviceRequests_servicesList" FromRole="servicesList" ToRole="serviceRequests" />
+        </EntityType>
+        <EntityType Name="statusList">
+          <Key>
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="statusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="serviceRequests" Relationship="DataBaseModel.FK_serviceRequests_statusList" FromRole="statusList" ToRole="serviceRequests" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <Property Name="workerId" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="roles" Relationship="DataBaseModel.FK_users_roles" FromRole="users" ToRole="roles" />
+          <NavigationProperty Name="workers" Relationship="DataBaseModel.FK_users_workers" FromRole="users" ToRole="workers" />
+        </EntityType>
+        <EntityType Name="workers">
+          <Key>
+            <PropertyRef Name="workerId" />
+          </Key>
+          <Property Name="workerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="jobTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sallary" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="serviceRequests" Relationship="DataBaseModel.FK_serviceRequests_workers" FromRole="workers" ToRole="serviceRequests" />
+          <NavigationProperty Name="users" Relationship="DataBaseModel.FK_users_workers" FromRole="workers" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_cars_clients">
+          <End Type="DataBaseModel.clients" Role="clients" Multiplicity="1" />
+          <End Type="DataBaseModel.cars" Role="cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="cars">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_cars">
+          <End Type="DataBaseModel.cars" Role="cars" Multiplicity="1" />
+          <End Type="DataBaseModel.serviceRequests" Role="serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cars">
+              <PropertyRef Name="carId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="carId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cartSerivce_clients">
+          <End Type="DataBaseModel.clients" Role="clients" Multiplicity="1" />
+          <End Type="DataBaseModel.cartSerivce" Role="cartSerivce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="cartSerivce">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cartSerivce_servicesList">
+          <End Type="DataBaseModel.servicesList" Role="servicesList" Multiplicity="1" />
+          <End Type="DataBaseModel.cartSerivce" Role="cartSerivce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicesList">
+              <PropertyRef Name="serviceId" />
+            </Principal>
+            <Dependent Role="cartSerivce">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_clients">
+          <End Type="DataBaseModel.clients" Role="clients" Multiplicity="1" />
+          <End Type="DataBaseModel.serviceRequests" Role="serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Type="DataBaseModel.roles" Role="roles" Multiplicity="1" />
+          <End Type="DataBaseModel.users" Role="users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_servicesList">
+          <End Type="DataBaseModel.servicesList" Role="servicesList" Multiplicity="1" />
+          <End Type="DataBaseModel.serviceRequests" Role="serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicesList">
+              <PropertyRef Name="serviceId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_statusList">
+          <End Type="DataBaseModel.statusList" Role="statusList" Multiplicity="1" />
+          <End Type="DataBaseModel.serviceRequests" Role="serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusList">
+              <PropertyRef Name="statusId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="statusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviceRequests_workers">
+          <End Type="DataBaseModel.workers" Role="workers" Multiplicity="1" />
+          <End Type="DataBaseModel.serviceRequests" Role="serviceRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="workers">
+              <PropertyRef Name="workerId" />
+            </Principal>
+            <Dependent Role="serviceRequests">
+              <PropertyRef Name="workerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_workers">
+          <End Type="DataBaseModel.workers" Role="workers" Multiplicity="1" />
+          <End Type="DataBaseModel.users" Role="users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="workers">
+              <PropertyRef Name="workerId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="workerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DataBaseModelContainer" CdmEntityContainer="DataBaseEntities">
+          <EntitySetMapping Name="cars">
+            <EntityTypeMapping TypeName="DataBaseModel.cars">
+              <MappingFragment StoreEntitySet="cars">
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="carId" ColumnName="carId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cartSerivce">
+            <EntityTypeMapping TypeName="DataBaseModel.cartSerivce">
+              <MappingFragment StoreEntitySet="cartSerivce">
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="serviceId" ColumnName="serviceId" />
+                <ScalarProperty Name="cartId" ColumnName="cartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="DataBaseModel.clients">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="surName" ColumnName="surName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marks">
+            <EntityTypeMapping TypeName="DataBaseModel.Marks">
+              <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="markName" ColumnName="markName" />
+                <ScalarProperty Name="markId" ColumnName="markId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="DataBaseModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="serviceRequests">
+            <EntityTypeMapping TypeName="DataBaseModel.serviceRequests">
+              <MappingFragment StoreEntitySet="serviceRequests">
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+                <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="carId" ColumnName="carId" />
+                <ScalarProperty Name="workerId" ColumnName="workerId" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="serviceId" ColumnName="serviceId" />
+                <ScalarProperty Name="serviceRequestId" ColumnName="serviceRequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servicesList">
+            <EntityTypeMapping TypeName="DataBaseModel.servicesList">
+              <MappingFragment StoreEntitySet="servicesList">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="serviceName" ColumnName="serviceName" />
+                <ScalarProperty Name="serviceId" ColumnName="serviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusList">
+            <EntityTypeMapping TypeName="DataBaseModel.statusList">
+              <MappingFragment StoreEntitySet="statusList">
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="DataBaseModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="workerId" ColumnName="workerId" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workers">
+            <EntityTypeMapping TypeName="DataBaseModel.workers">
+              <MappingFragment StoreEntitySet="workers">
+                <ScalarProperty Name="sallary" ColumnName="sallary" />
+                <ScalarProperty Name="jobTitle" ColumnName="jobTitle" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="surName" ColumnName="surName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="workerId" ColumnName="workerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="094c1b6ee2a04c01a8930f759d7f2fad" Name="Diagram1">
+        <EntityTypeShape EntityType="DataBaseModel.cars" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="DataBaseModel.cartSerivce" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="DataBaseModel.clients" Width="1.5" PointX="0.75" PointY="4.5" />
+        <EntityTypeShape EntityType="DataBaseModel.Marks" Width="1.5" PointX="5.75" PointY="2.25" />
+        <EntityTypeShape EntityType="DataBaseModel.roles" Width="1.5" PointX="3" PointY="19.5" />
+        <EntityTypeShape EntityType="DataBaseModel.serviceRequests" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="DataBaseModel.servicesList" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataBaseModel.statusList" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="DataBaseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.25" />
+        <EntityTypeShape EntityType="DataBaseModel.users" Width="1.5" PointX="5.25" PointY="15.125" />
+        <EntityTypeShape EntityType="DataBaseModel.workers" Width="1.5" PointX="3" PointY="14.875" />
+        <AssociationConnector Association="DataBaseModel.FK_cars_clients" />
+        <AssociationConnector Association="DataBaseModel.FK_serviceRequests_cars" />
+        <AssociationConnector Association="DataBaseModel.FK_cartSerivce_clients" />
+        <AssociationConnector Association="DataBaseModel.FK_cartSerivce_servicesList" />
+        <AssociationConnector Association="DataBaseModel.FK_serviceRequests_clients" />
+        <AssociationConnector Association="DataBaseModel.FK_users_roles" />
+        <AssociationConnector Association="DataBaseModel.FK_serviceRequests_servicesList" />
+        <AssociationConnector Association="DataBaseModel.FK_serviceRequests_statusList" />
+        <AssociationConnector Association="DataBaseModel.FK_serviceRequests_workers" />
+        <AssociationConnector Association="DataBaseModel.FK_users_workers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
